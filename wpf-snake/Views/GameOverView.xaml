@@ -1,0 +1,126 @@
+﻿<Window x:Class="wpf_snake.Views.GameOverView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Game Over"
+        Width="520" Height="545"
+        Background="Black"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style x:Key="GreenMenuButton" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="BorderBrush" Value="Green"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FF003000"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#6680FF80"/>
+                                <Setter Property="Background" Value="#FF101010"/>
+                                <Setter Property="BorderBrush" Value="#6640A040"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Yellow"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="GreenWatermarkTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="BorderBrush" Value="Green"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                                <TextBlock x:Name="Watermark"
+                                           Text="Name"
+                                           FontFamily="Courier New"
+                                           FontSize="14"
+                                           FontWeight="Bold"
+                                           Foreground="#8040FF40"
+                                           Margin="4,2,0,0"
+                                           IsHitTestVisible="False"
+                                           Visibility="Collapsed"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="Watermark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#5566AA66"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Yellow"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Canvas>
+        <TextBlock Text="GAME OVER"
+                   FontFamily="Courier New"
+                   FontWeight="Bold"
+                   FontSize="60"
+                   Foreground="Green"
+                   Width="394"
+                   TextAlignment="Center"
+                   Canvas.Left="67" Canvas.Top="106" Height="92"/>
+
+        <TextBlock Text="{Binding Score, StringFormat=Your score: {0}}"
+                   FontFamily="Courier New"
+                   FontWeight="Bold"
+                   FontSize="16"
+                   Foreground="Green"
+                   Width="218"
+                   TextAlignment="Center"
+                   Canvas.Left="148" Canvas.Top="176"/>
+
+        <TextBox Text="{Binding PlayerName, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource GreenWatermarkTextBox}"
+                 Width="232" Height="38"
+                 Canvas.Left="148" Canvas.Top="231" FontSize="20"/>
+
+        <Button Content="Menu"
+                Command="{Binding SaveAndExitCommand}"
+                Style="{StaticResource GreenMenuButton}"
+                Width="172" Height="67"
+                Canvas.Left="174" Canvas.Top="353" FontSize="36"/>
+    </Canvas>
+</Window>

@@ -1,0 +1,59 @@
+﻿<Window x:Class="wpf_snake.Views.GameView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpf_snake.Views"
+        mc:Ignorable="d"
+        Title="GameView" 
+        KeyDown="Window_KeyDown" 
+        Height="545" Width="520">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+
+    <Border BorderBrush="Green"
+            BorderThickness="5"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="510"
+            Height="510">
+        <Grid>
+            
+            <Canvas x:Name="GameCanvas" Background="Black" Height="500" Width="500"/>
+            <TextBlock Text="{Binding Score, StringFormat=Score: {0}}"
+               FontFamily="Courier New"
+               FontWeight="Bold"
+               FontSize="14.25"
+               Foreground="Green"
+               Margin="10,10,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Panel.ZIndex="10"/>
+            <Border Visibility="{Binding IsPaused, Converter={StaticResource BoolToVis}}"
+                    Background="#AA000000"
+                    BorderBrush="Green"
+                    BorderThickness="2"
+                    Width="260"
+                    Height="140"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="PAUSED"
+                               FontFamily="Courier New"
+                               FontSize="32"
+                               FontWeight="Bold"
+                               Foreground="Green"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Press ESC or P to resume"
+                               FontFamily="Courier New"
+                               FontSize="14"
+                               Foreground="Green"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

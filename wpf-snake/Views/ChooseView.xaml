@@ -1,0 +1,83 @@
+﻿<Window x:Class="wpf_snake.Views.ChooseView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Snake"
+        Width="520" Height="545"
+        Background="Black">
+    <Window.Resources>
+        <Style x:Key="GreenMenuButton" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="BorderBrush" Value="Green"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="20pt"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FF003000"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#6680FF80"/>
+                                <Setter Property="Background" Value="#FF101010"/>
+                                <Setter Property="BorderBrush" Value="#6640A040"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Yellow"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Canvas>
+        <Button x:Name="SmallButton"
+                Content="Small"
+                Width="172" Height="67"
+                Canvas.Left="174" Canvas.Top="208"
+                Style="{StaticResource GreenMenuButton}"
+                Command="{Binding StartSmallMapCommand}" 
+                HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button x:Name="MediumBoard"
+                Content="Medium"
+                Width="172" Height="67"
+                Canvas.Left="174" Canvas.Top="302"
+                Style="{StaticResource GreenMenuButton}" 
+                Command="{Binding StartMediumMapCommand}" 
+                HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button x:Name="LargeBoard"
+                Content="Large"
+                Width="172" Height="69"
+                Canvas.Left="176" Canvas.Top="394"
+                Style="{StaticResource GreenMenuButton}"
+                Command="{Binding StartLargeMapCommand}" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"/>
+        <Label Content="SNAKE"
+               Foreground="Green"
+               FontFamily="Courier New"
+               FontWeight="Bold"
+               FontSize="72"
+               Canvas.Left="147" Canvas.Top="100" Height="122" Width="224" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+    </Canvas>
+</Window>
