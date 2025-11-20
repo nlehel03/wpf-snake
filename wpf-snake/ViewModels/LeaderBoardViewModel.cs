@@ -28,7 +28,6 @@ namespace wpf_snake.ViewModels
         private void LoadScores()
         {
             var list = _fm.loadScores() ?? new System.Collections.Generic.List<Scores>();
-            // sort descending by score as in FileManagement.saveScore
             foreach (var s in list.OrderByDescending(x => x.score))
             {
                 Scores.Add(s);
@@ -37,14 +36,12 @@ namespace wpf_snake.ViewModels
 
         private void OpenMainMenu()
         {
-            // Show MainMenu and close this LeaderBoardView
             var menu = new MainMenuView
             {
                 DataContext = new MainMenuViewModel(new Services.NavigationService())
             };
             menu.Show();
 
-            // Close any existing LeaderBoardView(s)
             foreach (Window w in Application.Current.Windows)
             {
                 if (w is LeaderBoardView)

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using wpf_snake.Infrastructure; // WindowPlacement használata
+using wpf_snake.Infrastructure; 
 
 namespace wpf_snake.Views
 {
@@ -9,7 +9,7 @@ namespace wpf_snake.Views
         public MainMenuView()
         {
             InitializeComponent();
-            WindowPlacement.Apply(this); // Pozíció megőrzése
+            WindowPlacement.Apply(this);
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)

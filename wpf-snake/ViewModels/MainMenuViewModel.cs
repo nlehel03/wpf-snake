@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using wpf_snake.Controls;
 using wpf_snake.ViewModels;
 using wpf_snake.Commands;
 using wpf_snake.Services;

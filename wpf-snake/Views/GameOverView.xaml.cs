@@ -15,9 +15,6 @@ using wpf_snake.Infrastructure;
 
 namespace wpf_snake.Views
 {
-    /// <summary>
-    /// Interaction logic for GameOverView.xaml
-    /// </summary>
     public partial class GameOverView : Window
     {
         public GameOverView()

@@ -23,11 +23,9 @@ namespace wpf_snake.Services
 
         public void OpenGame(int cellSize, int n)
         {
-            // Create GameView with the requested size and show it
             var game = new GameView(cellSize, n);
             game.Show();
 
-            // Close any ChooseView windows
             foreach (Window w in Application.Current.Windows)
             {
                 if (w is ChooseView)

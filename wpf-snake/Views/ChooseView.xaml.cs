@@ -17,9 +17,6 @@ using wpf_snake.Infrastructure;
 
 namespace wpf_snake.Views
 {
-    /// <summary>
-    /// Interaction logic for ChooseView.xaml
-    /// </summary>
     public partial class ChooseView : Window
     {
         public ChooseView()
