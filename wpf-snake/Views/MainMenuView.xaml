@@ -61,7 +61,7 @@
                 Content="LeaderBoard"
                 Width="172" Height="67"
                 Canvas.Left="174" Canvas.Top="361"
-                Style="{StaticResource GreenMenuButton}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="23"/>
+                Style="{StaticResource GreenMenuButton}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="23" Click="LeaderBoardButton_Click"/>
         <Label Content="SNAKE"
                Foreground="Green"
                FontFamily="Courier New"

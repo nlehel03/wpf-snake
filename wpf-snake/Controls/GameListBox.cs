@@ -15,15 +15,13 @@ namespace wpf_snake.Controls
             BorderThickness = new Thickness(2);
             FontFamily = new FontFamily("Courier New");
             FontSize = 14;
-            ScrollViewer.VerticalScrollBarVisibilityProperty.OverrideMetadata(
-                typeof(GameListBox),
-                new FrameworkPropertyMetadata(ScrollBarVisibility.Auto));
+            SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
 
             // ItemContainerStyle – hogyan néz ki egy sor
             var style = new Style(typeof(ListBoxItem));
 
             style.Setters.Add(new Setter(BackgroundProperty, Brushes.Black));
-            style.Setters.Add(new Setter(ForegroundProperty, Brushes.Lime));
+            style.Setters.Add(new Setter(ForegroundProperty, Brushes.Green));
             style.Setters.Add(new Setter(PaddingProperty, new Thickness(4)));
 
             // Kijelölt elem: zöld háttér, fekete szöveg

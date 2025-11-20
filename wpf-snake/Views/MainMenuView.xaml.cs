@@ -33,5 +33,12 @@ namespace wpf_snake.Views
             choose.Show();
             this.Close();
         }
+
+        private void LeaderBoardButton_Click(object sender, RoutedEventArgs e)
+        {
+            var leaderBoard = new LeaderBoardView();
+            leaderBoard.Show();
+            this.Close();
+        }
     }
 }
