@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using wpf_snake.Infrastructure;
 
 namespace wpf_snake.Views
 {
@@ -22,6 +23,7 @@ namespace wpf_snake.Views
         public GameOverView()
         {
             InitializeComponent();
+            WindowPlacement.Apply(this);
         }
     }
 }

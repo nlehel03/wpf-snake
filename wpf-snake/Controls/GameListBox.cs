@@ -2,13 +2,12 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace wpf_snake.Controls   
+namespace wpf_snake.Controls
 {
     public class GameListBox : ListBox
     {
         public GameListBox()
         {
-            // Alap kinézet – megfelel a WinForms verziódnak
             Background = Brushes.Black;
             Foreground = Brushes.Lime;
             BorderBrush = Brushes.Lime;
@@ -17,25 +16,17 @@ namespace wpf_snake.Controls
             FontSize = 14;
             SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
 
-            // ItemContainerStyle – hogyan néz ki egy sor
-            var style = new Style(typeof(ListBoxItem));
+            var itemStyle = new Style(typeof(ListBoxItem));
+            itemStyle.Setters.Add(new Setter(BackgroundProperty, Brushes.Black));
+            itemStyle.Setters.Add(new Setter(ForegroundProperty, Brushes.Green));
+            itemStyle.Setters.Add(new Setter(PaddingProperty, new Thickness(4)));
 
-            style.Setters.Add(new Setter(BackgroundProperty, Brushes.Black));
-            style.Setters.Add(new Setter(ForegroundProperty, Brushes.Green));
-            style.Setters.Add(new Setter(PaddingProperty, new Thickness(4)));
+            var selectedTrigger = new Trigger { Property = IsSelectedProperty, Value = true };
+            selectedTrigger.Setters.Add(new Setter(BackgroundProperty, Brushes.Green));
+            selectedTrigger.Setters.Add(new Setter(ForegroundProperty, Brushes.Black));
+            itemStyle.Triggers.Add(selectedTrigger);
 
-            // Kijelölt elem: zöld háttér, fekete szöveg
-            var trigger = new Trigger
-            {
-                Property = IsSelectedProperty,
-                Value = true
-            };
-            trigger.Setters.Add(new Setter(BackgroundProperty, Brushes.Green));
-            trigger.Setters.Add(new Setter(ForegroundProperty, Brushes.Black));
-
-            style.Triggers.Add(trigger);
-
-            ItemContainerStyle = style;
+            ItemContainerStyle = itemStyle;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Controls;
+using wpf_snake.Infrastructure;
 
 namespace wpf_snake.Views
 {
@@ -14,6 +15,7 @@ namespace wpf_snake.Views
         public GameView()
         {
             InitializeComponent();
+            WindowPlacement.Apply(this);
             vm = new GameViewModel(cellSize: 20, n: 30);
             DataContext = vm;
             CompositionTarget.Rendering += RenderGame;
@@ -22,6 +24,7 @@ namespace wpf_snake.Views
         public GameView(int cellSize, int n)
         {
             InitializeComponent();
+            WindowPlacement.Apply(this);
             vm = new GameViewModel(cellSize, n);
             DataContext = vm;
             CompositionTarget.Rendering += RenderGame;

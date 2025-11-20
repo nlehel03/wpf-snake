@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using wpf_snake.ViewModels;
 using wpf_snake.Services;
+using wpf_snake.Infrastructure;
 
 namespace wpf_snake.Views
 {
@@ -25,6 +26,14 @@ namespace wpf_snake.Views
         {
             InitializeComponent();
             DataContext = new ChooseViewModel(new NavigationService());
+            WindowPlacement.Apply(this);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var menu = new MainMenuView();
+            menu.Show();
+            this.Close();
         }
     }
 }
