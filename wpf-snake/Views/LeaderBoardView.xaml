@@ -4,7 +4,6 @@
         xmlns:controls="clr-namespace:wpf_snake.Controls"
         Title="Snake" Width="520" Height="545" Background="Black" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <!-- Reuse the main menu button look, compact version -->
         <Style x:Key="GreenMenuButton" TargetType="Button">
             <Setter Property="Background" Value="Black"/>
             <Setter Property="Foreground" Value="Green"/>
@@ -36,7 +35,6 @@
             </Setter>
         </Style>
 
-        <!-- Item template for the list entries -->
         <DataTemplate x:Key="ScoreItemTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -59,6 +57,7 @@
                            VerticalAlignment="Center"/>
             </Grid>
         </DataTemplate>
+
         <Style TargetType="ScrollBar">
             <Setter Property="Width" Value="16"/>
             <Setter Property="Template">
@@ -66,26 +65,29 @@
                     <ControlTemplate TargetType="ScrollBar">
                         <Grid Background="Black">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0"/>
                                 <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="0"/>
                             </Grid.RowDefinitions>
 
-                            <RepeatButton Grid.Row="0" Background="Green" Command="ScrollBar.LineUpCommand" Height="16"/>
+                            <RepeatButton Grid.Row="0" Background="Green"
+                                          Command="ScrollBar.LineUpCommand" Height="16"/>
 
-                            <Track x:Name="PART_Track" Grid.Row="1">
-                                <Track.DecreaseRepeatButton>
-                                    <RepeatButton Background="Green" Command="ScrollBar.PageUpCommand"/>
-                                </Track.DecreaseRepeatButton>
+                            <Track x:Name="PART_Track" Grid.Row="1"
+                                   Orientation="Vertical"
+                                   IsDirectionReversed="True"
+                                   Minimum="{TemplateBinding Minimum}"
+                                   Maximum="{TemplateBinding Maximum}"
+                                   Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Mode=TwoWay}"
+                                   ViewportSize="{TemplateBinding ViewportSize}">
                                 <Track.Thumb>
                                     <Thumb Background="Green" BorderBrush="Black" BorderThickness="1"/>
                                 </Track.Thumb>
-                                <Track.IncreaseRepeatButton>
-                                    <RepeatButton Background="Green" Command="ScrollBar.PageDownCommand"/>
-                                </Track.IncreaseRepeatButton>
+                                
                             </Track>
 
-                            <RepeatButton Grid.Row="2" Background="Green" Command="ScrollBar.LineDownCommand" Height="16"/>
+                            <RepeatButton Grid.Row="2" Background="Green"
+                                          Command="ScrollBar.LineDownCommand" Height="16"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -106,7 +108,6 @@
 
                                     <RepeatButton Grid.Column="0" Background="Green" Command="ScrollBar.LineLeftCommand" Width="16"/>
 
-                                    <!-- HORIZONTAL -->
                                     <Track x:Name="PART_Track"
                                            Grid.Column="1"
                                            Orientation="Horizontal"

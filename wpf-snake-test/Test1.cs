@@ -73,10 +73,9 @@ namespace wpf_snake_test
         }
 
         [TestMethod]
-        public void IsCollisionWithSelf_ReturnsTrue_WhenHeadOverlapsBody()
+        public void IsCollisionWithSelf_WhenHeadOverlapsBody()
         {
             var snake = new Snake(new Point(2, 2));
-            // Force a body that will collide after one move to the right.
             snake.body.Clear();
             snake.body.AddRange(new[]
             {
@@ -106,7 +105,7 @@ namespace wpf_snake_test
             };
             var food = new Food(new Point(1, 1));
             food.Respawn(10, snakeBody);
-            Assert.IsFalse(snakeBody.Contains(food.position), "Food should not respawn on snake body.");
+            Assert.IsFalse(snakeBody.Contains(food.position));
         }
     }
 
@@ -114,35 +113,32 @@ namespace wpf_snake_test
     public sealed class GameStateTests
     {
         [TestMethod]
-        public void Update_IncrementsScore_WhenEatingFood()
+        public void Update_IncrementsScore()
         {
             var gs = new GameState(20);
-            // Put food on head position using reflection (private setter).
             var foodProp = typeof(GameState).GetProperty("food");
             var head = gs.snake.body[0];
             foodProp!.SetValue(gs, new Food(head));
             int before = gs.score;
             gs.Update();
-            Assert.AreEqual(before + 1, gs.score, "Score should increment after eating food.");
+            Assert.AreEqual(before + 1, gs.score);
         }
 
         [TestMethod]
         public void Update_SetsGameOver_OnWallCollision()
         {
             var gs = new GameState(5);
-            // Place head at top wall and move up.
             gs.snake.body.Clear();
             gs.snake.body.Add(new Point(2, 0));
             gs.snake.direction = Direction.Up;
             gs.Update();
-            Assert.IsTrue(gs.isGameOver, "Hiba.");
+            Assert.IsTrue(gs.isGameOver);
         }
 
         [TestMethod]
         public void Update_SetsGameOver_OnSelfCollision()
         {
             var gs = new GameState(10);
-            // Craft body that will collide moving Right.
             gs.snake.body.Clear();
             gs.snake.body.AddRange(new[]
             {
@@ -153,7 +149,7 @@ namespace wpf_snake_test
             });
             gs.snake.direction = Direction.Right;
             gs.Update();
-            Assert.IsTrue(gs.isGameOver, "Hiba.");
+            Assert.IsTrue(gs.isGameOver);
         }
     }
 
@@ -191,7 +187,7 @@ namespace wpf_snake_test
         }
 
         [TestMethod]
-        public void LoadMapSizeTest()
+        public void LoadMapSize()
         {
             using var _ = new CurrentDirectoryScope(_tempDir);
             var fm = new FileManagement();
@@ -201,7 +197,7 @@ namespace wpf_snake_test
         }
 
         [TestMethod]
-        public void SaveScoreTest()
+        public void SaveScore()
         {
             using var _ = new CurrentDirectoryScope(_tempDir);
             var fm = new FileManagement();
@@ -216,7 +212,7 @@ namespace wpf_snake_test
     public sealed class ChooseViewModelTests
     {
         [TestMethod]
-        public void StartSmallMapTest()
+        public void StartSmallMap()
         {
             var tempDir = Path.Combine(Path.GetTempPath(), "wpf_snake_test_" + Guid.NewGuid());
             Directory.CreateDirectory(tempDir);
@@ -237,7 +233,7 @@ namespace wpf_snake_test
                 Assert.IsNotNull(vm.MapSize);
                 Assert.AreEqual(20, vm.MapSize.cellSize);
                 Assert.AreEqual(30, vm.MapSize.n);
-                Assert.IsTrue(fakeNav.GameOpened, "OpenGame should have been called.");
+                Assert.IsTrue(fakeNav.GameOpened);
                 Assert.AreEqual(20, fakeNav.OpenedCellSize);
                 Assert.AreEqual(30, fakeNav.OpenedN);
             }
@@ -255,7 +251,7 @@ namespace wpf_snake_test
             obj.GetType().GetMethod(name, BindingFlags.Instance | BindingFlags.NonPublic)!;
 
         [TestMethod]
-        public void KeyPressChangesDirectionTest()
+        public void KeyPressChangesDirection()
         {
             var fakeNav = new FakeNavigationService();
             var vm = new GameViewModel(20, 15, fakeNav);
@@ -271,13 +267,13 @@ namespace wpf_snake_test
             var fakeNav = new FakeNavigationService();
             var vm = new GameViewModel(20, 15, fakeNav);
             vm.KeyPressCommand.Execute("P");
-            Assert.IsTrue(vm.IsPaused, "Should be paused after first toggle.");
+            Assert.IsTrue(vm.IsPaused);
             vm.KeyPressCommand.Execute("P");
-            Assert.IsFalse(vm.IsPaused, "Should be resumed after second toggle.");
+            Assert.IsFalse(vm.IsPaused);
         }
 
         [TestMethod]
-        public void NavigateGameOverTest()
+        public void NavigateGameOver()
         {
             var fakeNav = new FakeNavigationService();
             var vm = new GameViewModel(20, 5, fakeNav);
@@ -290,7 +286,7 @@ namespace wpf_snake_test
             update.Invoke(vm, null);
 
             Assert.IsTrue(vm.Model.isGameOver);
-            Assert.IsTrue(fakeNav.GameOverOpened, "Should navigate to GameOver on game over.");
+            Assert.IsTrue(fakeNav.GameOverOpened);
         }
     }
 
@@ -299,7 +295,7 @@ namespace wpf_snake_test
     {
         [DoNotParallelize]
         [TestMethod]
-        public void SaveAndReturnTest()
+        public void SaveAndReturn()
         {
             var tempDir = Path.Combine(Path.GetTempPath(), "wpf_snake_test_" + Guid.NewGuid());
             Directory.CreateDirectory(tempDir);
@@ -324,8 +320,8 @@ namespace wpf_snake_test
                 mi.Invoke(vm, null);
 
                 var lines = File.ReadAllLines(scoresPath);
-                Assert.IsTrue(lines.Any(l => l.StartsWith("Dana;8")), "New score should be saved.");
-                Assert.IsTrue(fakeNav.MainMenuOpened, "Should navigate to main menu.");
+                Assert.IsTrue(lines.Any(l => l.StartsWith("Dana;8")));
+                Assert.IsTrue(fakeNav.MainMenuOpened);
             }
             finally
             {
